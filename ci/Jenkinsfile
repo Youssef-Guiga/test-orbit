@@ -1,0 +1,66 @@
+pipeline {
+    agent any
+    
+    environment {
+        DEPLOY_ENV = 'production'
+        // Secret should be in credentials
+        API_KEY = 'hardcoded-secret-123' 
+    }
+    
+    stages {
+        stage('Checkout & Setup') {
+            steps {
+                checkout scm
+                sh 'chmod +x ci/verify.sh'
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                sh 'make build'
+                // Should archive artifacts
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                sh 'make test'
+                // Should store test results
+            }
+            post {
+                always {
+                    junit '**/test-results/*.xml' // Path doesn't exist
+                }
+            }
+        }
+        
+        stage('Security Scan') {
+            when {
+                expression { params.RUN_SCAN }
+            }
+            steps {
+                // Missing security scan step
+                echo 'Security scan would run here'
+            }
+        }
+        
+        stage('Verify') {
+            steps {
+                script {
+                    if (fileExists('ci/verify.sh')) { // Typo in parenthesis
+                        sh 'ci/verify.sh'
+                    } else {
+                        error 'Verification failed'
+                    }
+                }
+            }
+        }
+    }
+    
+    post {
+        failure {
+            // Should notify on failure
+            echo 'Pipeline failed'
+        }
+    }
+}
