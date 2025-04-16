@@ -15,12 +15,12 @@ pipeline {
             }
         }
         
-        stage('Build') {
-            steps {
-                sh 'make build'
-                // Should archive artifacts
-            }
-        }
+     stage('Build') {
+    steps {
+        sh 'make build'
+        archiveArtifacts artifacts: '**/build/**', fingerprint: true
+    }
+}
         
         stage('Test') {
             steps {
