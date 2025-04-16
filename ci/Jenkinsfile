@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout & Setup') {
             steps {
                 checkout scm
-                sh 'chmod +x /verify/verify.sh'
+                //done
             }
         }
         
