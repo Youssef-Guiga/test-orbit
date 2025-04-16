@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout & Setup') {
             steps {
                 checkout scm
-                sh 'chmod +x ci/verify.sh'
+                sh 'chmod +x /verify/verify.sh'
             }
         }
         
@@ -47,8 +47,8 @@ pipeline {
         stage('Verify') {
             steps {
                 script {
-                    if (fileExists('ci/verify.sh')) { // Typo in parenthesis
-                        sh 'ci/verify.sh'
+                    if (fileExists('verify/verify.sh')) { // Typo in parenthesis
+                        sh '/verify/verify.sh'
                     } else {
                         error 'Verification failed'
                     }
