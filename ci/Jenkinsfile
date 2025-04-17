@@ -29,7 +29,7 @@ pipeline {
         stage('Test') {
             steps {
                 // Run your dummy test
-                sh 'python -m pytest test_dummy.py -v'
+                sh 'python -m pytest src/test_dummy.py -v'
             }
             post {
                 always {
