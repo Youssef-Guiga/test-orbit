@@ -21,8 +21,7 @@ pipeline {
                     // Run main.py to verify build
                     sh 'python src/main.py'
                     
-                    // Archive any build artifacts (if generated)
-                    archiveArtifacts artifacts: '**/dist/**', fingerprint: true
+
                 }
             }
         }
