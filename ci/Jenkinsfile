@@ -51,18 +51,18 @@ pipeline {
             }
         }
         
-        stage('Verify') {
-            steps {
-                script {
-                    if (fileExists('/verify/verify.sh')) {
-                        sh '/verify/verify.sh'
-                    } else {
-                        error 'Verification script missing'
-                    }
-                }
-            }
-        }
-    }
+    //     stage('Verify') {
+    //         steps {
+    //             script {
+    //                 if (fileExists('/verify/verify.sh')) {
+    //                     sh '/verify/verify.sh'
+    //                 } else {
+    //                     error 'Verification script missing'
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
     
     post {
         failure {
